@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shortlet Project</title>
+  <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap.css">
+  <link rel="stylesheet" href="assets/fa/css/all.css">
+  <link href="assets/css/aos.css" rel="stylesheet">
+  <style>
+    /* div {
+            border: 2px solid black;
+        } */
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 100vh;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      color: #fff;
+      position: relative;
+    }
+
+    .slide-content {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px 50px;
+      height: 100%;
+      width: 100%;
+      max-width: 100%;
+      color: #fff;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: fadeInUp 1s ease forwards;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    /* Heading styling */
+    #hero-heading {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    #hero-heading span {
+      display: inline-block;
+      margin: 0 5px;
+    }
+
+    /* Subtext styling */
+    #hero-subtext {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 700px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* Buttons */
+    #hero-button,
+    #hero-button-2 {
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 30px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    /* Fancy Button Hover */
+    #hero-button:hover,
+    #hero-button-2:hover {
+      background-color: #ffffff;
+      color: #000;
+      transition: 0.3s ease;
+    }
+
+    /* Fade-in Animation for .slide-content */
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Styling the heading and paragraph inside */
+    .slide-content h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .slide-content p {
+      font-size: 1.2rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    #hero-subtext {
+      opacity: 0;
+      transform: translateY(30px);
+      /* Move it downward initially */
+    }
+
+    /* General styling for section */
+    .col-12,
+    .col-md-6 {
+      margin-top: 30px;
+      padding: 20px;
+    }
+
+    /* Heading Styling */
+    h5 {
+      font-family: 'Arial', sans-serif;
+      color: #333;
+    }
+
+    h3 {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    h5 {
+      font-size: 1.5rem;
+      color: #007bff;
+    }
+
+    /* About Us Paragraph Styling */
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    /* Stats container - improved styling */
+    .stats-container {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .stat-item {
+      font-size: 1.2rem;
+      color: #333;
+      padding: 10px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .stat-item:hover {
+      transform: scale(1.1);
+    }
+
+    .stat-item i {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .count {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #28a745;
+      margin: 10px 0;
+    }
+
+    /* Button Styling */
+    .btn-warning {
+      background-color: #f8c600;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-warning:hover {
+      background-color: #e59d00;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .stats-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .stat-item {
+        margin-bottom: 20px;
+      }
+    }
+
+
+    /* Make sure your container allows overflow */
+    .col-6 {
+      overflow: visible;
+      position: relative;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      /* 2 columns */
+      gap: 10px;
+      /* nicer breathing space */
+      animation: zoomIn 1s ease forwards;
+      align-items: start;
+      /* better alignment */
+    }
+
+    /* Common image settings */
+    .grid-image {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Different heights for personality */
+    .grid-image:nth-child(1) {
+      height: 400px;
+      margin-top: 70px;
+    }
+
+    .grid-image:nth-child(2) {
+      height: 300px;
+    }
+
+    .grid-image:nth-child(3) {
+      height: 300px;
+    }
+
+    .grid-image:nth-child(4) {
+      height: 400px;
+    }
+
+    /* Zoom effect on load */
+    @keyframes zoomIn {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Beautiful slight hover effect */
+    .grid-image:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .elements {
+      font-size: 30px;
+    }
+
+    /* Container for the service item */
+    .service-item {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+      padding: 50px;
+    }
+
+    /* Service item background and text on hover */
+    .service-item:hover {
+      background-color: #007bff;
+      color: #fff;
+      transform: translateY(-5px);
+      opacity: 1;
+    }
+
+    /* Icon container styling */
+    .service-icon {
+      background-color: transparent;
+      border: 5px solid #007bff;
+      margin: 20px auto;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      width: 20%;
+    }
+
+    /* Icon styling */
+    .service-icon i {
+      color: #007bff;
+      transition: color 0.3s ease;
+    }
+
+    /* Text styling */
+    .service-item h5 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .service-item p {
+      font-size: 1rem;
+      color: #6c757d;
+      transition: color 0.3s ease;
+    }
+
+    /* On hover: make all text and icon and border white */
+    .service-item:hover .service-icon {
+      border-color: #fff;
+      /* Frame turns white */
+    }
+
+    .service-item:hover .service-icon i {
+      color: #fff !important;
+      /* Icon turns white */
+    }
+
+    .service-item:hover h5,
+    .service-item:hover p {
+      color: #fff;
+      /* Heading and paragraph turn white */
+    }
+
+    /* Social Icons - Base Style */
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #343a40;
+      /* Dark grey */
+      color: #ffffff;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hover Effects for Each Social Media */
+    .footer-social a:hover {
+      background-color: #6c757d;
+      /* fallback color */
+      color: #fff;
+    }
+
+    .footer-social a.facebook:hover {
+      background-color: #3b5998;
+    }
+
+    .footer-social a.twitter:hover {
+      background-color: #00acee;
+    }
+
+    .footer-social a.instagram:hover {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      color: #fff;
+    }
+
+    .footer-social a.linkedin:hover {
+      background-color: #0077b5;
+    }
+
+    .footer-social a.whatsapp:hover {
+      background-color: #25D366;
+      /* WhatsApp Green */
+    }
+
+    .hover-effect {
+      transition: all 0.3s ease-in-out;
+      background: #fff;
+      border-radius: 15px;
+    }
+
+    .hover-effect:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-wrapper h3 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .about-line {
+      flex: 0 0 50px;
+      height: 2px;
+      background: #007BFF;
+      border-radius: 5px;
+    }
+
+    .about-line.left {
+      margin-right: 10px;
+      /* Adds breathing space on the left */
+    }
+
+    .about-line.right {
+      margin-left: 10px;
+      /* Adds breathing space on the right */
+    }
+
+    .about-wrapper h3 {
+      margin: 0;
+      font-size: 24px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Swiper -->
+  <div class="swiper hero" id="hero">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" style="background-image: url('images/banner.jpeg')">
+        <div class="slide-content">
+          <h1 id="hero-heading">
+            <span>Find</span>
+            <span>Your</span>
+            <span>Next</span>
+            <span>Luxury</span>
+            <span>Stay</span>
+          </h1>
+          <p id="hero-subtext">Step into unmatched elegance at Your Shortlets
+            — where
+            world-class luxury meets the vibrant soul of Accra. Designed for those who settle for nothing
+            but the best.</p>
+          <div class="text-center">
+            <button class="btn btn-primary me-2 herobutton">Our Properties</button>
+            <button class="btn btn-primary herobutton">Explore Properties</button>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide" style="background-image: url('images/banner_three.jpg')">
+        <div class="slide-content">
+          <h1 id="hero-heading-2">
+            <span>Modern</span>
+            <span>Comforts</span>
+            <span>in</span>
+            <span>the</span>
+            <span>Heart</span>
+            <span>of</span>
+            <span>Abuja</span>
+          </h1>
+          <p>Discover upscale living redefined. Our Abuja residences offer a perfect blend of sleek design,
+            ultimate comfort, and a prestigious address — crafted for sophisticated urban lifestyles.</p>
+        </div>
+      </div>
+      <div class="swiper-slide" style="background-image: url('images/banner_two.jpg')">
+        <div class="slide-content">
+          <h2>Exclusive Serenity by the Beach</h2>
+          <p>Wake up to ocean views and world-class amenities. Our beachfront villas offer an oasis of
+            privacy, luxury, and timeless beauty — the ultimate escape you've been dreaming of.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- Custom Buttons -->
+    <!-- <div class="swiper-button-next my-next"></div>
+        <div class="swiper-button-prev my-prev"></div> -->
+  </div>
+  <div class="container-fluid mt-5">
+    <div class="row" data-aos="fade-in" data-aos-delay="300">
+      <!-- First Column (Text Content) -->
+      <div class="col-12 col-md-6">
+        <div class="about-wrapper text-center mb-4">
+          <div class="about-line left"></div>
+          <h3>ABOUT US</h3>
+          <div class="about-line right"></div>
+        </div>
+        <h5 class="text-center mb-4">Welcome to Your Shortlets</h5>
+        <p class="text-justify">
+          At Your shortlets, we offer a refined, home-away-from-home experience in the heart
+          of the city. Our shortlet accommodations are designed to provide both comfort and style, with
+          modern amenities tailored to meet the needs of business travelers, tourists, and anyone seeking a
+          memorable stay. Each apartment is tastefully furnished, offering a serene and private space to relax
+          or work.
+          <br>
+          Our commitment to excellence is reflected in every detail, from our premium interiors to the
+          impeccable service we provide. Whether you’re here for a few days or a few weeks, we ensure that
+          your stay is not only comfortable but exceptional. We believe that your accommodation should
+          reflect the same quality and luxury you expect in the world’s finest hotels, with the added benefit of a
+          more personalized, home-like atmosphere.
+        </p>
+        <div class="stats-container d-flex justify-content-around mt-4">
+          <div class="stat-item text-center">
+            <i class="fas fa-door-open fa-3x"></i>
+            <p class="count" id="rooms-count">0</p>
+            <p>Rooms Available</p>
+          </div>
+          <div class="stat-item text-center">
+            <i class="fas fa-user-tie fa-3x"></i>
+            <p class="count" id="staff-count">0</p>
+            <p>Staff</p>
+          </div>
+          <div class="stat-item text-center">
+            <i class="fas fa-users fa-3x"></i>
+            <p class="count" id="clients-count">0</p>
+            <p>Clients</p>
+          </div>
+        </div>
+        <!-- <div class="d-flex justify-content-end mt-4">
+                  <a class="btn btn-warning px-4 py-2" href="#">EXPLORE MORE</a>
+              </div> -->
+      </div>
+
+
+      <!-- Second Column (Image Grid) -->
+      <div class="col-12 col-md-6">
+        <div class="image-grid">
+          <img src="images/image1.jpg" alt="Image 1" class="grid-image img-fluid mb-2 d-none d-md-block">
+          <img src="images/image4.jpg" alt="Image 4" class="grid-image img-fluid mb-2 d-none d-md-block"
+            style="margin-top: 170px;">
+          <img src="images/image3.jpg" alt="Image 3" class="grid-image img-fluid mb-2 d-none d-md-block">
+          <img src="images/image2.jpg" alt="Image 2" class="grid-image img-fluid mb-2 d-none d-md-block">
+        </div>
+      </div>
+    </div>
+    <div class="row" data-aos="fade-up" data-aos-delay="300">
+      <section class="our-story py-5">
+        <div class="container">
+          <h2 class="text-center mb-5">Our Story</h2>
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="card shadow-sm border-0 p-4 hover-effect" data-aos="fade-in" data-aos-delay="300">
+                <h4 class="card-title">Why We Started</h4>
+                <p class="card-text">
+                  We started Your Shortlets with a simple idea: to make short stays more enjoyable, luxurious, and
+                  stress-free. After recognizing the need for a comfortable, private, and convenient stay option in the
+                  area, we decided to create a space that combines the best aspects of home living and hotel luxury.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="card shadow-sm border-0 p-4 hover-effect" data-aos="fade-in" data-aos-delay="300">
+                <h4 class="card-title">Our Mission</h4>
+                <p class="card-text">
+                  Our mission is to offer guests an experience where luxury meets convenience, providing them with a
+                  perfect retreat whether for a short getaway or an extended stay. We believe in creating an environment
+                  where comfort and relaxation are always at the forefront.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-5">
+            <h3 class="mb-4">What Makes Us Different?</h3>
+            <p>
+              At Your Shortlets, we take pride in offering personalized service and a seamless stay. What sets us apart
+              is our attention to detail — from the design of our spaces to the tailored services we provide. Whether
+              you're here for business or leisure, our focus is on your comfort and satisfaction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="our-values py-5 bg-light">
+        <div class="container">
+          <h2 class="text-center mb-5">Our Values</h2>
+          <div class="row g-4">
+
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0 hover-effect p-4" data-aos="fade-in" data-aos-delay="300">
+                <i class="fas fa-heart fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Commitment to Comfort</h5>
+                <p class="card-text">
+                  We’re committed to ensuring that every guest enjoys a relaxing and stress-free experience. Your
+                  comfort is our top priority.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0 hover-effect p-4" data-aos="fade-in" data-aos-delay="300">
+                <i class="fas fa-handshake fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Personalized Service</h5>
+                <p class="card-text">
+                  We understand that everyone has unique needs. Our dedicated team works to ensure that every stay is
+                  catered to your preferences.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0 hover-effect p-4" data-aos="fade-in" data-aos-delay="300">
+                <i class="fas fa-cogs fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Excellence in Every Detail</h5>
+                <p class="card-text">
+                  We believe that the little things matter. From the design of our apartments to the services we
+                  provide, we pay attention to every detail.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="why-choose-us py-5 bg-light">
+        <div class="container">
+          <h2 class="text-center mb-5">Why Choose Us?</h2>
+          <div class="row g-4">
+
+            <div class="col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-effect p-4" data-aos="fade-in" data-aos-delay="300">
+                <div class="d-flex align-items-start">
+                  <i class="fas fa-map-marker-alt fa-2x text-primary me-3"></i>
+                  <div>
+                    <h5 class="card-title">Prime Location</h5>
+                    <p class="card-text">
+                      Nestled in a convenient and secure area, you’ll have easy access to key attractions, dining,
+                      shopping, and business hubs.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-effect p-4" data-aos="fade-in" data-aos-delay="300">
+                <div class="d-flex align-items-start">
+                  <i class="fas fa-couch fa-2x text-primary me-3"></i>
+                  <div>
+                    <h5 class="card-title">Elegant & Comfortable Spaces</h5>
+                    <p class="card-text">
+                      Our apartments are designed for relaxation and efficiency, with thoughtful touches that create an
+                      inviting environment.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-effect p-4" data-aos="fade-in" data-aos-delay="300">
+                <div class="d-flex align-items-start">
+                  <i class="fas fa-user-friends fa-2x text-primary me-3"></i>
+                  <div>
+                    <h5 class="card-title">Customer-Centered Service</h5>
+                    <p class="card-text">
+                      Our team is dedicated to making your stay smooth and memorable, ensuring all your needs are met.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card h-100 shadow-sm border-0 hover-effect p-4" data-aos="fade-in" data-aos-delay="300">
+                <div class="d-flex align-items-start">
+                  <i class="fas fa-calendar-alt fa-2x text-primary me-3"></i>
+                  <div>
+                    <h5 class="card-title">Short-Term Flexibility</h5>
+                    <p class="card-text">
+                      Whether it’s a weekend getaway, business trip, or extended stay, we offer flexible options to suit
+                      your schedule.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="text-center mt-5">
+            <p class="lead">
+              At <strong>Your Shortlets</strong>, we invite you to enjoy a stay that combines the luxury of a hotel with
+              the comfort and privacy of a home.<br>
+              <strong>Book with us today</strong> and experience a new standard of shortlet living.
+            </p>
+          </div>
+
+        </div>
+      </section>
+    </div>
+    <div class="row" data-aos="fade-up" data-aos-delay="300">
+      <div class="col">
+        <div class="text-center">
+          <div class="about-wrapper text-center mb-4">
+            <div class="about-line left"></div>
+            <h3>OUR SERVICES</h3>
+            <div class="about-line right"></div>
+          </div>
+          <h5 class="mb-5">Explore Our <span class="text-primary text-uppercase">Services</span></h5>
+        </div>
+      </div>
+    </div>
+    <div class="row g-4" data-aos="fade-up" data-aos-delay="300">
+      <div class="col-lg-4 col-md-6 aos-item" data-aos="fade-up" data-aos-delay="50">
+        <a class="service-item rounded" href="">
+          <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+            <div class=" border rounded d-flex align-items-center justify-content-center">
+              <i class="fa fa-hotel fa-2x text-primary ico"></i>
+            </div>
+          </div>
+          <h5 class="mb-3">Rooms & Apartment</h5>
+          <p class="para">Explore our luxurious and comfortable rooms and apartments, designed to
+            provide the perfect getaway for your stay. Enjoy modern amenities, elegant decor, and a relaxing
+            atmosphere.</p>
+        </a>
+      </div>
+      <div class="col-lg-4 col-md-6 aos-item" data-aos="fade-up" data-aos-delay="100">
+        <a class="service-item rounded" href="">
+          <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+            <div class="border rounded d-flex align-items-center justify-content-center">
+              <i class="fa fa-utensils fa-2x text-primary ico"></i>
+            </div>
+          </div>
+          <h5 class="mb-3">Food & Restaurant</h5>
+          <p class="para">
+            Indulge in a variety of delicious cuisines at our exquisite restaurant. We offer mouth-watering
+            dishes prepared by top chefs, perfect for satisfying your taste buds and creating unforgettable
+            dining experiences.
+          </p>
+        </a>
+      </div>
+      <div class="col-lg-4 col-md-6 aos-item" data-aos="fade-up" data-aos-delay="150">
+        <a class="service-item rounded" href="">
+          <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+            <div class="border rounded d-flex align-items-center justify-content-center">
+              <i class="fa fa-spa fa-2x text-primary ico"></i>
+            </div>
+          </div>
+          <h5 class="mb-3">Spa & Fitness</h5>
+          <p class="para">
+            Rejuvenate your body and mind at our spa and fitness center. Enjoy soothing spa treatments and stay active
+            with our modern gym facilities, all designed to help you relax, recharge, and stay healthy.
+          </p>
+        </a>
+      </div>
+      <div class="col-lg-4 col-md-6 aos-item" data-aos="fade-up" data-aos-delay="200">
+        <a class="service-item rounded" href="">
+          <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+            <div class="border rounded d-flex align-items-center justify-content-center">
+              <i class="fa fa-futbol fa-2x text-primary ico"></i>
+            </div>
+          </div>
+          <h5 class="mb-3">Sports & Gaming</h5>
+          <p class="para">
+            Experience thrilling sports and exciting gaming activities at our facility. Whether you're into football,
+            indoor games, or electronic gaming zones, there's something fun for everyone to enjoy.
+          </p>
+        </a>
+      </div>
+      <div class="col-lg-4 col-md-6 aos-item" data-aos="fade-up" data-aos-delay="250">
+        <a class="service-item rounded" href="">
+          <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+            <div class="border rounded d-flex align-items-center justify-content-center">
+              <i class="fa fa-glass-cheers fa-2x text-primary ico"></i>
+            </div>
+          </div>
+          <h5 class="mb-3">Event & Party</h5>
+          <p class="para">
+            Celebrate unforgettable moments with us! Our event and party spaces are perfect for weddings, birthdays,
+            corporate gatherings, and special occasions, all set in a stylish and vibrant atmosphere.
+          </p>
+        </a>
+      </div>
+      <div class="col-lg-4 col-md-6 aos-item" data-aos="fade-up" data-aos-delay="300">
+        <a class="service-item rounded" href="">
+          <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+            <div class="border rounded d-flex align-items-center justify-content-center">
+              <i class="fa fa-dumbbell fa-2x text-primary ico"></i>
+            </div>
+          </div>
+          <h5 class="mb-3">Gym & Yoga</h5>
+          <p class="para">
+            Stay fit and find your inner peace with our fully equipped gym and serene yoga spaces. Whether you want
+            intense workouts or calming yoga sessions, we offer the perfect environment for your wellness journey.
+          </p>
+        </a>
+      </div>
+
+    </div>
+    <div class="row" data-aos="fade-up" data-aos-delay="500">
+      <footer class="bg-dark text-light pt-5 pb-4">
+        <div class="row gy-4">
+
+          <!-- About / Logo -->
+          <div class="col-md-4">
+            <h5 class="text-uppercase fw-bold mb-3">Your Shortlet</h5>
+            <p>Experience comfort and luxury at affordable rates. Your perfect stay, your way — in the heart of the
+              city.</p>
+            <div class="footer-social d-flex gap-3 mt-3">
+              <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+              <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+
+          </div>
+
+          <!-- Quick Links -->
+          <div class="col-md-2">
+            <h6 class="text-uppercase fw-bold mb-3">Quick Links</h6>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+              <li><a href="apartment.html" class="text-light text-decoration-none">Apartments</a></li>
+              <li><a href="aboutus.html" class="text-light text-decoration-none">About Us</a></li>
+              <li><a href="contactus.html" class="text-light text-decoration-none">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="col-md-3">
+            <h6 class="text-uppercase fw-bold mb-3">Contact Us</h6>
+            <p><i class="fas fa-map-marker-alt me-2"></i> Abuja/Ghana</p>
+            <p><i class="fas fa-envelope me-2"></i> info@yourshortlet.com</p>
+            <p><i class="fas fa-phone me-2"></i> +234 810 000 0000</p>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="col-md-3">
+            <h6 class="text-uppercase fw-bold mb-3">Newsletter</h6>
+            <p>Stay updated with our latest offers and listings.</p>
+            <form>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" placeholder="Your email" required>
+                <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i></button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- Bottom note -->
+        <div class="text-center mt-4 border-top pt-3 small text-secondary">
+          &copy; 2025 Your Shortlet. All Rights Reserved.
+          <p class="mb-0 text-center">Designed & Developed by
+            <a href="https://oluwakoredealonge.github.io/folio/index.html"
+              class="fw-bold text-white text-decoration-none" target="_blank">Korede Alonge</a>
+          </p>
+        </div>
+      </footer>
+    </div>
+
+  </div>
+
+  <!-- Vendor JS libraries -->
+  <script src="assets/js/bootstrap.js"></script>
+  <!-- Bootstrap depends on Popper.js too if you use tooltips or dropdowns -->
+  <script src="assets/js/gsap.min.js"></script> <!-- GSAP animation -->
+  <script src="assets/js/ScrollTrigger.min.js"></script> <!-- ScrollTrigger plugin for GSAP -->
+  <script src="assets/js/swiper-bundle.min.js"></script> <!-- Swiper carousel -->
+  <script src="assets/js/aos.js"></script>
+
+  <!-- Your custom script -->
+  <script>
+    AOS.init();
+    // Initialize Swiper (example setup, edit as needed)
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 1,
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+
+    // Initialize GSAP + ScrollTrigger animations (example setup)
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from('.your-class', {
+      scrollTrigger: '.your-class',
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power2.out"
+    });
+  </script>
+
+  <script>
+    const timeline = gsap.timeline({
+      defaults: { ease: "power3.out", duration: 1 }
+    });
+
+    timeline
+      .from("#hero-heading span, #hero-heading-2 span", {
+        y: 50,
+        opacity: 0,
+        stagger: 0.2  // each span comes one after the other
+      })
+      .from(".herobutton", {
+        y: 50,
+        opacity: 0
+      }, "-=0.5"); // button starts a bit earlier after the last span
+    gsap.to("#hero-subtext", {
+      opacity: 1,
+      y: 0,
+      delay: 1,
+      duration: 1,
+      ease: "power2.out"
+    });
+
+    var swiper = new Swiper(".swiper", {
+      effect: "fade",
+      fadeEffect: {
+        crossFade: true
+      },
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      loop: true,
+    });
+
+  </script>
+  <script>
+    // Function to animate the counting
+    function countUp(id, target, duration) {
+      let element = document.getElementById(id);
+      let start = 0;
+      let end = target;
+      let range = end - start;
+      let stepTime = Math.abs(Math.floor(duration / range));
+      let increment = (end > start) ? 1 : -1;
+
+      let counter = setInterval(function () {
+        start += increment;
+        element.innerText = start;
+
+        if (start === end) {
+          clearInterval(counter);
+        }
+      }, stepTime);
+    }
+
+    // Example data for rooms, staff, and clients
+    const roomsAvailable = 25;
+    const staffCount = 10;
+    const clientsCount = 150;
+
+    // Animate counting
+    countUp("rooms-count", roomsAvailable, 2000); // 2000ms for animation
+    countUp("staff-count", staffCount, 2000);
+    countUp("clients-count", clientsCount, 2000);
+  </script>
+
+</body>
+
+</html>

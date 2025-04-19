@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shortlet Project</title>
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/fa/css/all.css">
+    <link href="assets/css/aos.css" rel="stylesheet">
+    <style>
+        /* div {
+            border: 2px solid black;
+        } */
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #fff;
+            position: relative;
+        }
+
+        .slide-content {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px 50px;
+            height: 100%;
+            width: 100%;
+            max-width: 100%;
+            color: #fff;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            animation: fadeInUp 1s ease forwards;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        /* Heading styling */
+        #hero-heading {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        #hero-heading span {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        /* Subtext styling */
+        #hero-subtext {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Buttons */
+        #hero-button,
+        #hero-button-2 {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Fancy Button Hover */
+        #hero-button:hover,
+        #hero-button-2:hover {
+            background-color: #ffffff;
+            color: #000;
+            transition: 0.3s ease;
+        }
+
+        /* Fade-in Animation for .slide-content */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Styling the heading and paragraph inside */
+        .slide-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        #hero-subtext {
+            opacity: 0;
+            transform: translateY(30px);
+            /* Move it downward initially */
+        }
+
+        /* Social Icons - Base Style */
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #343a40; /* Dark grey */
+  color: #ffffff;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+/* Hover Effects for Each Social Media */
+.footer-social a:hover {
+  background-color: #6c757d; /* fallback color */
+  color: #fff;
+}
+
+.footer-social a.facebook:hover {
+  background-color: #3b5998;
+}
+
+.footer-social a.twitter:hover {
+  background-color: #00acee;
+}
+
+.footer-social a.instagram:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  color: #fff;
+}
+
+.footer-social a.linkedin:hover {
+  background-color: #0077b5;
+}
+.footer-social a.whatsapp:hover {
+  background-color: #25D366; /* WhatsApp Green */
+}
+.hover-effect {
+    transition: all 0.3s ease-in-out;
+    background: #fff;
+    border-radius: 15px;
+  }
+
+  .hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  /* General Styles */
+.contact-section {
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
+}
+
+/* .container {
+  max-width: 1200px;
+  margin: 0 auto;
+} */
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.contact-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact-item h3 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.contact-item ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-item ul li {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-bottom: 8px;
+}
+
+.contact-item a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+.google-maps-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #3498db;
+}
+
+.google-maps-link:hover {
+  text-decoration: underline;
+}
+/* General Styles */
+.contact-form-section {
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.form-description {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+}
+
+.contact-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 1rem;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: #e74c3c;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+/* General Styles */
+.location-map-section {
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
+}
+
+/* .container {
+  max-width: 1000px;
+  margin: 0 auto;
+} */
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.map-description {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+}
+
+.map-container {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.map-tip {
+  font-size: 1rem;
+  text-align: center;
+  color: #7f8c8d;
+  margin-top: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .map-description, .map-tip {
+    font-size: 1rem;
+  }
+}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Swiper -->
+    <div class="swiper hero" id="hero">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background-image: url('images/banner.jpeg')">
+                <div class="slide-content">
+                    <h1 id="hero-heading">
+                        <span>Find</span>
+                        <span>Your</span>
+                        <span>Next</span>
+                        <span>Luxury</span>
+                        <span>Stay</span>
+                    </h1>
+                    <p id="hero-subtext">Step into unmatched elegance at Empire Heights — Masterpiece Apartments, Ghana
+                        — where
+                        world-class luxury meets the vibrant soul of Accra. Designed for those who settle for nothing
+                        but the best.</p>
+                    <div class="text-center">
+                        <button class="btn btn-primary me-2 herobutton">Our Properties</button>
+                        <button class="btn btn-primary herobutton">Explore Properties</button>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide" style="background-image: url('images/banner_three.jpg')">
+                <div class="slide-content">
+                    <h1 id="hero-heading-2">
+                        <span>Modern</span>
+                        <span>Comforts</span>
+                        <span>in</span>
+                        <span>the</span>
+                        <span>Heart</span>
+                        <span>of</span>
+                        <span>Abuja</span>
+                    </h1>
+                    <p>Discover upscale living redefined. Our Abuja residences offer a perfect blend of sleek design,
+                        ultimate comfort, and a prestigious address — crafted for sophisticated urban lifestyles.</p>
+                </div>
+            </div>
+            <div class="swiper-slide" style="background-image: url('images/banner_two.jpg')">
+                <div class="slide-content">
+                    <h2>Exclusive Serenity by the Beach</h2>
+                    <p>Wake up to ocean views and world-class amenities. Our beachfront villas offer an oasis of
+                        privacy, luxury, and timeless beauty — the ultimate escape you've been dreaming of.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- Custom Buttons -->
+        <!-- <div class="swiper-button-next my-next"></div>
+        <div class="swiper-button-prev my-prev"></div> -->
+    </div>
+    <div class="container-fluid mt-5">
+      <div class="row" data-aos="fade-up" data-aos-delay="500">
+        <section class="contact-section">
+            <div class="container">
+              <h2 class="section-title">Contact Us</h2>
+          
+              <div class="contact-info" data-aos="fade-up" data-aos-delay="50">
+                <div class="contact-item">
+                  <h3>Phone Numbers</h3>
+                  <ul>
+                    <li><strong>For Booking Inquiries:</strong> +234 123 456 7890</li>
+                    <li><strong>For Maintenance Issues:</strong> +234 098 765 4321</li>
+                  </ul>
+                </div>
+          
+                <div class="contact-item" data-aos="fade-up" data-aos-delay="100">
+                  <h3>Email Addresses</h3>
+                  <ul>
+                    <li><strong>Booking:</strong> <a href="mailto:booking@yourapartment.com">booking@yourapartment.com</a></li>
+                    <li><strong>General Inquiries:</strong> <a href="mailto:info@yourapartment.com">info@yourapartment.com</a></li>
+                  </ul>
+                </div>
+          
+                <div class="contact-item" data-aos="fade-up" data-aos-delay="150">
+                  <h3>Physical Address</h3>
+                  <p>
+                   Abuja/Ghana
+                  </p>
+                  <a href="https://www.google.com/maps?q=123+Olujoda+Covenant+Extension,+Lane+13,+Ado-Ekiti,+Ekiti+State,+Nigeria" target="_blank" class="google-maps-link">View on Google Maps</a>
+                </div>
+          
+                <div class="contact-item" data-aos="fade-up" data-aos-delay="200">
+                  <h3>Business Hours</h3>
+                  <ul>
+                    <li><strong>Monday to Friday:</strong> 9:00 AM - 6:00 PM</li>
+                    <li><strong>Saturday:</strong> 9:00 AM - 2:00 PM</li>
+                    <li><strong>Sunday:</strong> Closed</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+      </div>
+      <div class="row" data-aos="fade-up" data-aos-delay="500">
+        <section class="contact-form-section">
+            <div class="container">
+              <p class="form-description">Please fill in the form below to send us your inquiry. We will get back to you via mail as soon as possible.</p>
+          
+              <form action="#" method="POST" class="contact-form">
+                <div class="form-group">
+                  <label for="name">Full Name <span class="required">*</span></label>
+                  <input type="text" id="name" name="name" required placeholder="Enter your full name" class="form-control">
+                </div>
+          
+                <div class="form-group">
+                  <label for="email">Email Address <span class="required">*</span></label>
+                  <input type="email" id="email" name="email" required placeholder="Enter your email address" class="form-control">
+                </div>
+          
+                <div class="form-group">
+                  <label for="phone">Phone Number (Optional)</label>
+                  <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="form-control">
+                </div>
+          
+                <div class="form-group">
+                  <label for="message">Message/Inquiry Details <span class="required">*</span></label>
+                  <textarea id="message" name="message" rows="5" required placeholder="Please describe your inquiry here" class="form-control"></textarea>
+                </div>
+          
+                <div class="form-group">
+                  <label for="inquiry-type">Nature of Inquiry</label>
+                  <select id="inquiry-type" name="inquiry_type" class="form-control">
+                    <option value="booking">Booking Inquiry</option>
+                    <option value="feedback">Feedback/Suggestions</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="maintenance">Maintenance Request</option>
+                  </select>
+                </div>
+          
+                <button type="submit" class="submit-btn">Send Message</button>
+              </form>
+            </div>
+          </section>
+          
+      </div>
+      <div class="row" data-aos="fade-up" data-aos-delay="500">
+        <section class="location-map-section">
+            <div class="container">
+              <h2 class="section-title">Find Us</h2>
+              <p class="map-description">Our apartment is located at the heart of Abuja. Use the map below to find us easily or get directions directly from Google Maps.</p>
+          
+              <!-- Google Maps Embed -->
+              <div class="map-container">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15858.043586593918!2d5.3147186!3d7.5221106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10407e35150ed381%3A0x9a8b2b7bb61d6f7b!2sOlujoda%20Covenant%20Extension%2C%20Lane%2013%2C%20Ado-Ekiti%2C%20Ekiti%20State%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1682010295318!5m2!1sen!2sng"
+                  width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+              </div>
+          
+              <p class="map-tip">You can also find nearby landmarks to help guide you to our location. Just zoom in on the map for better visibility!</p>
+            </div>
+          </section>
+          
+      </div>
+       <div class="row" data-aos="fade-up" data-aos-delay="500">
+        <footer class="bg-dark text-light pt-5 pb-4">
+            <div class="row gy-4">
+        
+              <!-- About / Logo -->
+              <div class="col-md-4">
+                <h5 class="text-uppercase fw-bold mb-3">Your Shortlet</h5>
+                <p>Experience comfort and luxury at affordable rates. Your perfect stay, your way — in the heart of the city.</p>
+                <div class="footer-social d-flex gap-3 mt-3">
+                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                  </div>
+                  
+              </div>
+        
+              <!-- Quick Links -->
+              <div class="col-md-2">
+                <h6 class="text-uppercase fw-bold mb-3">Quick Links</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+                    <li><a href="apartment.html" class="text-light text-decoration-none">Apartments</a></li>
+                    <li><a href="aboutus.html" class="text-light text-decoration-none">About Us</a></li>
+                    <li><a href="contactus.html" class="text-light text-decoration-none">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-3">
+                <h6 class="text-uppercase fw-bold mb-3">Contact Us</h6>
+                <p><i class="fas fa-map-marker-alt me-2"></i> Abuja/Ghana</p>
+                <p><i class="fas fa-envelope me-2"></i> info@yourshortlet.com</p>
+                <p><i class="fas fa-phone me-2"></i> +234 810 000 0000</p>
+            </div>
+        
+              <!-- Newsletter -->
+              <div class="col-md-3">
+                <h6 class="text-uppercase fw-bold mb-3">Newsletter</h6>
+                <p>Stay updated with our latest offers and listings.</p>
+                <form>
+                  <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Your email" required>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i></button>
+                  </div>
+                </form>
+              </div>
+        
+            </div>
+        
+            <!-- Bottom note -->
+            <div class="text-center mt-4 border-top pt-3 small text-secondary">
+              &copy; 2025 Your Shortlet. All Rights Reserved.
+              <p class="mb-0">Designed & Developed by
+                <a href="https://oluwakoredealonge.github.io/folio/index.html" class="fw-bold text-white text-decoration-none" target="_blank">Korede Alonge</a>
+            </p>
+            </div>
+        </footer>
+       </div>
+          
+    </div>
+
+    <!-- Vendor JS libraries -->
+    <script src="assets/js/bootstrap.js"></script>
+    <!-- Bootstrap depends on Popper.js too if you use tooltips or dropdowns -->
+    <script src="assets/js/gsap.min.js"></script> <!-- GSAP animation -->
+    <script src="assets/js/ScrollTrigger.min.js"></script> <!-- ScrollTrigger plugin for GSAP -->
+    <script src="assets/js/swiper-bundle.min.js"></script> <!-- Swiper carousel -->
+    <script src="assets/js/aos.js"></script>
+
+    <!-- Your custom script -->
+    <script>
+        AOS.init();
+        // Initialize Swiper (example setup, edit as needed)
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        // Initialize GSAP + ScrollTrigger animations (example setup)
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.your-class', {
+            scrollTrigger: '.your-class',
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out"
+        });
+    </script>
+
+    <script>
+        const timeline = gsap.timeline({
+            defaults: { ease: "power3.out", duration: 1 }
+        });
+
+        timeline
+            .from("#hero-heading span, #hero-heading-2 span", {
+                y: 50,
+                opacity: 0,
+                stagger: 0.2  // each span comes one after the other
+            })
+            .from(".herobutton", {
+                y: 50,
+                opacity: 0
+            }, "-=0.5"); // button starts a bit earlier after the last span
+        gsap.to("#hero-subtext", {
+            opacity: 1,
+            y: 0,
+            delay: 1,
+            duration: 1,
+            ease: "power2.out"
+        });
+
+        var swiper = new Swiper(".swiper", {
+            effect: "fade",
+            fadeEffect: {
+                crossFade: true
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            loop: true,
+        });
+
+    </script>
+    <script>
+        // Function to animate the counting
+        function countUp(id, target, duration) {
+            let element = document.getElementById(id);
+            let start = 0;
+            let end = target;
+            let range = end - start;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            let increment = (end > start) ? 1 : -1;
+
+            let counter = setInterval(function () {
+                start += increment;
+                element.innerText = start;
+
+                if (start === end) {
+                    clearInterval(counter);
+                }
+            }, stepTime);
+        }
+
+        // Example data for rooms, staff, and clients
+        const roomsAvailable = 25;
+        const staffCount = 10;
+        const clientsCount = 150;
+
+        // Animate counting
+        countUp("rooms-count", roomsAvailable, 2000); // 2000ms for animation
+        countUp("staff-count", staffCount, 2000);
+        countUp("clients-count", clientsCount, 2000);
+    </script>
+
+</body>
+
+</html>
