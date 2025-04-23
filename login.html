@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/fa/css/all.css">
+    <link href="assets/css/aos.css" rel="stylesheet">
+</head>
+<style>
+    a{
+        text-decoration: none;
+    }
+    /* Footer Styling */
+footer {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+}
+
+/* Footer Heading */
+footer h5, footer h6 {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Links in Footer */
+footer a {
+    color: #f8f9fa;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Social Media Icons Styling */
+.footer-social a {
+    font-size: 1.5rem;
+    color: #f8f9fa;
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Social Media Icons Hover Effect */
+.footer-social a.facebook:hover {
+    color: #3b5998; /* Facebook blue */
+}
+
+.footer-social a.whatsapp:hover {
+    color: #25d366; /* WhatsApp green */
+}
+
+.footer-social a.twitter:hover {
+    color: #1da1f2; /* Twitter blue */
+}
+
+.footer-social a.instagram:hover {
+    color: #e1306c; /* Instagram pink */
+}
+
+.footer-social a.linkedin:hover {
+    color: #0077b5; /* LinkedIn blue */
+}
+
+/* Input Field and Button for Newsletter */
+footer .input-group input {
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+}
+
+footer .input-group button {
+    background-color: #007bff;
+    border-radius: 0.5rem;
+    color: #fff;
+    border: none;
+    padding: 0.75rem;
+    cursor: pointer;
+}
+
+footer .input-group button:hover {
+    background-color: #0056b3;
+}
+
+/* Bottom Note Styling */
+footer .text-center {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+footer .text-center a {
+    color: #ffffff;
+}
+
+footer .text-center a:hover {
+    color: #007bff;
+}
+/* Navbar Styling */
+.navbar {
+    background-color: #343a40; /* Dark background for the navbar */
+}
+
+/* Navbar Brand (Logo) */
+.navbar-brand img {
+    height: 40px; /* Adjust logo size */
+}
+
+/* Navbar Link Styling */
+.navbar-nav .nav-link {
+    color: #f8f9fa !important; /* Light color for text */
+    font-weight: bold;
+    text-transform: uppercase; /* Makes the text uppercase */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff; /* Change to a blue color on hover */
+}
+
+/* Toggler Icon */
+.navbar-toggler-icon {
+    background-color: #ffffff; /* White icon for the navbar toggler */
+}
+
+/* Navbar Collapse */
+.navbar-collapse {
+    justify-content: flex-end; /* Align the links to the right */
+}
+
+/* Active Link */
+.navbar-nav .nav-link.active {
+    color: #007bff; /* Highlight active link */
+}
+
+</style>
+<body class="bg-light d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="#">
+                        <img src="your-logo.png" alt="Your Shortlet Logo" height="40"> <!-- Replace with your logo path -->
+                    </a>
+                    
+                    <!-- Navbar Links -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto"> <!-- ms-auto class to align links to the right -->
+                            <li class="nav-item">
+                                <a class="nav-link active" href="index.html">Home</a> <!-- Change href to your home page -->
+                            </li>
+                            <!-- Add more nav links here if needed -->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <div class="card shadow p-4 mx-auto mt-5" style="max-width: 400px; width: 100%;">
+                <h3 class="text-center mb-4">Login</h3>
+                <form method="POST" action="#">
+                  <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="rememberMe">
+                      <label class="form-check-label" for="rememberMe">Remember Me</label>
+                    </div>
+                    <a href="#">Forgot Password?</a>
+                  </div>
+                  <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
+                  <div class="text-center mt-3">
+                    Don’t have an account yet? 
+                    <a href="register.html" class="text-primary">Register</a>
+                  </div>
+                </form>
+              </div>
+        </div>
+    </div>
+<div class="row mt-5">
+        <footer class="bg-dark text-light pt-5 pb-4">
+            <div class="row gy-4">
+        
+                <!-- About / Logo -->
+                <div class="col-md-4">
+                    <h5 class="text-uppercase fw-bold mb-3">Your Shortlet</h5>
+                    <p>Experience comfort and luxury at affordable rates. Your perfect stay, your way — in the heart
+                        of the city.</p>
+                    <div class="footer-social d-flex gap-3 mt-3">
+                        <a href="#" class="facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="whatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+        
+                <!-- Quick Links -->
+                <div class="col-md-2">
+                    <h6 class="text-uppercase fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="apartment.html" class="text-light text-decoration-none">Apartments</a></li>
+                        <li><a href="aboutus.html" class="text-light text-decoration-none">About Us</a></li>
+                        <li><a href="contactus.html" class="text-light text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+        
+                <!-- Contact Info -->
+                <div class="col-md-3">
+                    <h6 class="text-uppercase fw-bold mb-3">Contact Us</h6>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Abuja/Ghana</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@yourshortlet.com</p>
+                    <p><i class="fas fa-phone me-2"></i> +234 810 000 0000</p>
+                </div>
+        
+                <!-- Newsletter -->
+                <div class="col-md-3">
+                    <h6 class="text-uppercase fw-bold mb-3">Newsletter</h6>
+                    <p>Stay updated with our latest offers and listings.</p>
+                    <form>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Your email" required>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </form>
+                </div>
+        
+            </div>
+        
+            <!-- Bottom note -->
+            <div class="text-center mt-4 border-top pt-3 small text-secondary">
+                &copy; 2025 Your Shortlet. All Rights Reserved.
+                <p class="mb-0 text-center">Designed & Developed by
+                    <a href="https://oluwakoredealonge.github.io/folio/index.html"
+                        class="fw-bold text-white text-decoration-none" target="_blank">Korede Alonge</a>
+                </p>
+            </div>
+        </footer>
+</div>
+
+</div>
+   <!-- Core Vendor JS Libraries -->
+   <script src="assets/js/jquery.js"></script> <!-- jQuery -->
+   <script src="assets/js/popper.min.js"></script>
+   <!-- Popper.js (needed for Bootstrap tooltips, popovers, dropdowns) -->
+   <script src="assets/js/bootstrap.js"></script> <!-- Bootstrap -->
+
+   <!-- Animation Libraries -->
+   <script src="assets/js/gsap.min.js"></script> <!-- GSAP core -->
+   <script src="assets/js/ScrollTrigger.min.js"></script> <!-- GSAP ScrollTrigger Plugin -->
+
+   <!-- UI Components -->
+   <script src="assets/js/swiper-bundle.min.js"></script> <!-- Swiper Carousel -->
+   <script src="assets/js/aos.js"></script> <!-- AOS (Animate on Scroll) -->
+
+</body>
+</html>
