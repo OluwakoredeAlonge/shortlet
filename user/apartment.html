@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apartments</title>
+  <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/fa/css/all.css">
+    <link href="assets/css/aos.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+    }
+    .sidebar {
+      min-height: 100vh;
+      background-color: #0d6efd;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      padding: 1rem;
+      display: block;
+    }
+    .sidebar a:hover {
+      background-color: #0b5ed7;
+    }
+    @media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 75%;
+    background-color:#0b5ed7;
+    z-index: 999;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  .sidebar a {
+    padding: 1rem;
+    display: block;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+     /* Heading Styling */
+     h3,
+        h5 {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        h5 {
+            font-size: 1.5rem;
+            color: #007bff;
+        }
+
+        /* About Us Paragraph Styling */
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .elements {
+            font-size: 30px;
+        }
+
+        /* Container for the service item */
+        .service-item {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            padding: 50px;
+        }
+
+        /* Service item background and text on hover */
+        .service-item:hover {
+            background-color: #007bff;
+            color: #fff;
+            transform: translateY(-5px);
+            opacity: 1;
+        }
+
+        /* Icon container styling */
+        .service-icon {
+            background-color: transparent;
+            border: 5px solid #007bff;
+            margin: 20px auto;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            width: 20%;
+        }
+
+        /* Icon styling */
+        .service-icon i {
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+
+        /* Text styling */
+        .service-item h5 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .service-item p {
+            font-size: 1rem;
+            color: #6c757d;
+            transition: color 0.3s ease;
+        }
+
+        /* On hover: make all text and icon and border white */
+        .service-item:hover .service-icon {
+            border-color: #fff;
+            /* Frame turns white */
+        }
+
+        .service-item:hover .service-icon i {
+            color: #fff !important;
+            /* Icon turns white */
+        }
+
+        .service-item:hover h5,
+        .service-item:hover p {
+            color: #fff;
+            /* Heading and paragraph turn white */
+        }
+
+  </style>
+</head>
+<body>
+
+<!-- Top Navbar -->
+<nav class="navbar navbar-dark bg-primary d-md-none">
+  <div class="container-fluid">
+    <button class="btn btn-outline-light" id="menuToggle"><i class="fas fa-bars"></i></button>
+    <span class="navbar-brand mb-0 h1">Book an Apartment</span>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+   <!-- Sidebar -->
+<div class="col-md-2 sidebar p-0" id="sidebar">
+    <a href="profile.html"><i class="fas fa-user-edit me-2"></i>Profile</a>
+    <a href="apartment.html"><i class="fas fa-home me-2"></i>Book an Apartment</a>
+    <a href="bookings.html"><i class="fas fa-calendar-check me-2"></i>My Bookings</a>
+    <a href="paymenthistory.html"><i class="fas fa-receipt me-2"></i>Payment History</a>
+    <!-- <a href="#"><i class="fas fa-star me-2"></i>Saved Apartments</a>  -->
+    <a href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+  </div>
+  
+
+    <!-- Main Content -->
+    <div class="col-md-10 ms-sm-auto px-4 py-4">
+        <div class="row">
+            <section class="container py-5">
+                <div class="bg-light p-4 rounded-4 shadow-sm">
+                    <form class="d-flex flex-wrap gap-3 align-items-end justify-content-between">
+
+                        <!-- Search by Name or Type -->
+                        <div class="flex-grow-1">
+                            <label for="search" class="form-label fw-semibold">Search</label>
+                            <input type="text" class="form-control" id="search"
+                                placeholder="Search apartment name, type...">
+                        </div>
+
+                        <!-- Min Price -->
+                        <div style="width: 140px;">
+                            <label for="min-price" class="form-label fw-semibold">Min Price</label>
+                            <input type="number" class="form-control" id="min-price" placeholder="₦0">
+                        </div>
+
+                        <!-- Max Price -->
+                        <div style="width: 140px;">
+                            <label for="max-price" class="form-label fw-semibold">Max Price</label>
+                            <input type="number" class="form-control" id="max-price" placeholder="₦500,000">
+                        </div>
+
+                        <!-- Room Type -->
+                        <div style="width: 180px;">
+                            <label for="room-type" class="form-label fw-semibold">Room Type</label>
+                            <select id="room-type" class="form-select">
+                                <option selected>All Types</option>
+                                <option>Junior Suite</option>
+                                <option>Executive Suite</option>
+                                <option>Presidential Suite</option>
+                                <option>Studio Apartment</option>
+                            </select>
+                        </div>
+
+                        <!-- Amenities -->
+                        <div style="width: 180px;">
+                            <label for="amenities" class="form-label fw-semibold">Amenities</label>
+                            <select id="amenities" class="form-select">
+                                <option selected>All Amenities</option>
+                                <option>Wi-Fi</option>
+                                <option>Pool</option>
+                                <option>Gym</option>
+                                <option>Parking</option>
+                            </select>
+                        </div>
+
+                        <!-- Search Button -->
+                        <div style="width: 140px;">
+                            <label class="form-label fw-semibold invisible">Search</label>
+                            <!-- invisible label for alignment -->
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search me-2"></i>Search
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+
+
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <div class="col">
+                <div class="text-center">
+                    <h6 class="section-title text-center text-primary text-uppercase">Our Spaces</h6>
+                    <h1 class="mb-5">Discover Your Perfect <span class="text-primary text-uppercase">Getaway</span></h1>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="position-relative">
+                        <img class="img-fluid zoom-img rounded-3" src="images/room1.jpg" alt="Room Image">
+
+                        <!-- Price Tag -->
+                        <small class="position-absolute start-0 bottom-0 m-3 bg-primary text-white rounded py-2 px-3"
+                            style="font-weight:600;">
+                            $100/Night
+                        </small>
+
+                        <!-- Room Status Tag (FREE or OCCUPIED) -->
+                        <small class="position-absolute top-0 end-0 m-5 px-3 py-2 rounded-pill text-white fw-semibold"
+                            style="background: linear-gradient(45deg, #28a745, #218838); font-size: 13px;">
+                            Free
+                        </small>
+                        <!-- 
+                          To mark as Occupied, just change:
+                          background to something like: linear-gradient(45deg, #dc3545, #c82333)
+                          and text to "Occupied"
+                        -->
+                    </div>
+                </div>
+
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Junior Suite</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star-half-alt text-primary"></small>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2 elements"></i>3
+                            Beds</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2 elements"></i>2
+                            Baths</small>
+                        <small><i class="fa fa-wifi text-primary me-2 elements"></i>Free Wifi</small>
+                    </div>
+                    <p class="text-body mb-3 text-truncate" style="max-width: 100%;">
+                        Step into a world of contemporary luxury with our Junior Suite, offering spacious living,
+                        premium comfort, and a chic design tailored for modern travelers.
+                    </p>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4 hover-grow" href="#">View Detail</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4 hover-grow" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100" data-aos="fade-up"
+                data-aos-delay="1">
+                <div>
+                    <div class="position-relative">
+                        <img class="img-fluid zoom-img" src="images/room2.jpg" alt="Room Image">
+                        <small class="position-absolute start-0 bottom-0 m-3 bg-primary text-white rounded py-2 px-3"
+                            style="font-weight:600;">$100/Night</small>
+                    </div>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Executive Suite</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star-half-alt text-primary"></small> <!-- Half star added -->
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2 elements"></i>3
+                            Beds</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2 elements"></i>2
+                            Baths</small>
+                        <small><i class="fa fa-wifi text-primary me-2 elements"></i>Free Wifi</small>
+                    </div>
+                    <p class="text-body mb-3 text-truncate" style="max-width: 100%;">Step into a world of contemporary
+                        luxury with our Junior Suite, offering spacious living, premium comfort, and a chic design
+                        tailored for modern travelers.</p>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4 hover-grow" href="#">View Detail</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4 hover-grow" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="position-relative">
+                        <img class="img-fluid zoom-img" src="images/room3.jpg" alt="Room Image">
+                        <small class="position-absolute start-0 bottom-0 m-3 bg-primary text-white rounded py-2 px-3"
+                            style="font-weight:600;">$100/Night</small>
+                    </div>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Deluxe Room</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star-half-alt text-primary"></small> <!-- Half star added -->
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2 elements"></i>3
+                            Beds</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2 elements"></i>2
+                            Baths</small>
+                        <small><i class="fa fa-wifi text-primary me-2 elements"></i>Free Wifi</small>
+                    </div>
+                    <p class="text-body mb-3 text-truncate" style="max-width: 100%;">Step into a world of contemporary
+                        luxury with our Junior Suite, offering spacious living, premium comfort, and a chic design
+                        tailored for modern travelers.</p>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4 hover-grow" href="#">View Detail</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4 hover-grow" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="position-relative">
+                        <img class="img-fluid zoom-img" src="images/room4.jpg" alt="Room Image">
+                        <small class="position-absolute start-0 bottom-0 m-3 bg-primary text-white rounded py-2 px-3"
+                            style="font-weight:600;">$100/Night</small>
+                    </div>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Penthouse Suite</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star-half-alt text-primary"></small> <!-- Half star added -->
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2 elements"></i>3
+                            Beds</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2 elements"></i>2
+                            Baths</small>
+                        <small><i class="fa fa-wifi text-primary me-2 elements"></i>Free Wifi</small>
+                    </div>
+                    <p class="text-body mb-3 text-truncate" style="max-width: 100%;">Step into a world of contemporary
+                        luxury with our Junior Suite, offering spacious living, premium comfort, and a chic design
+                        tailored for modern travelers.</p>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4 hover-grow" href="#">View Detail</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4 hover-grow" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="position-relative">
+                        <img class="img-fluid zoom-img" src="images/room5.jpg" alt="Room Image">
+                        <small class="position-absolute start-0 bottom-0 m-3 bg-primary text-white rounded py-2 px-3"
+                            style="font-weight:600;">$100/Night</small>
+                    </div>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Superior Apartment</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star-half-alt text-primary"></small> <!-- Half star added -->
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2 elements"></i>3
+                            Beds</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2 elements"></i>2
+                            Baths</small>
+                        <small><i class="fa fa-wifi text-primary me-2 elements"></i>Free Wifi</small>
+                    </div>
+                    <p class="text-body mb-3 text-truncate" style="max-width: 100%;">Step into a world of contemporary
+                        luxury with our Junior Suite, offering spacious living, premium comfort, and a chic design
+                        tailored for modern travelers.</p>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4 hover-grow" href="#">View Detail</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4 hover-grow" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="position-relative">
+                        <img class="img-fluid zoom-img" src="images/room6.jpg" alt="Room Image">
+                        <small class="position-absolute start-0 bottom-0 m-3 bg-primary text-white rounded py-2 px-3"
+                            style="font-weight:600;">$100/Night</small>
+                    </div>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Luxury Studio</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star-half-alt text-primary"></small> <!-- Half star added -->
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2 elements"></i>3
+                            Beds</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2 elements"></i>2
+                            Baths</small>
+                        <small><i class="fa fa-wifi text-primary me-2 elements"></i>Free Wifi</small>
+                    </div>
+                    <p class="text-body mb-3 text-truncate" style="max-width: 100%;">Step into a world of contemporary
+                        luxury with our Junior Suite, offering spacious living, premium comfort, and a chic design
+                        tailored for modern travelers.</p>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4 hover-grow" href="#">View Detail</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4 hover-grow" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="position-relative">
+                        <img class="img-fluid zoom-img" src="images/room7.jpg" alt="Room Image">
+                        <small class="position-absolute start-0 bottom-0 m-3 bg-primary text-white rounded py-2 px-3"
+                            style="font-weight:600;">$100/Night</small>
+                    </div>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Presidential Suite</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star-half-alt text-primary"></small> <!-- Half star added -->
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2 elements"></i>3
+                            Beds</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2 elements"></i>2
+                            Baths</small>
+                        <small><i class="fa fa-wifi text-primary me-2 elements"></i>Free Wifi</small>
+                    </div>
+                    <p class="text-body mb-3 text-truncate" style="max-width: 100%;">Step into a world of contemporary
+                        luxury with our Junior Suite, offering spacious living, premium comfort, and a chic design
+                        tailored for modern travelers.</p>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4 hover-grow" href="#">View Detail</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4 hover-grow" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="position-relative">
+                        <img class="img-fluid zoom-img" src="images/room8.jpg" alt="Room Image">
+                        <small class="position-absolute start-0 bottom-0 m-3 bg-primary text-white rounded py-2 px-3"
+                            style="font-weight:600;">$100/Night</small>
+                    </div>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">City View Apartment</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star-half-alt text-primary"></small> <!-- Half star added -->
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2 elements"></i>3
+                            Beds</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2 elements"></i>2
+                            Baths</small>
+                        <small><i class="fa fa-wifi text-primary me-2 elements"></i>Free Wifi</small>
+                    </div>
+                    <p class="text-body mb-3 text-truncate" style="max-width: 100%;">Step into a world of contemporary
+                        luxury with our Junior Suite, offering spacious living, premium comfort, and a chic design
+                        tailored for modern travelers.</p>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4 hover-grow" href="#">View Detail</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4 hover-grow" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <div class="position-relative">
+                        <img class="img-fluid zoom-img" src="images/room9.jpg" alt="Room Image">
+                        <small class="position-absolute start-0 bottom-0 m-3 bg-primary text-white rounded py-2 px-3"
+                            style="font-weight:600;">$100/Night</small>
+                    </div>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Garden View Suite</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star-half-alt text-primary"></small> <!-- Half star added -->
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2 elements"></i>3
+                            Beds</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2 elements"></i>2
+                            Baths</small>
+                        <small><i class="fa fa-wifi text-primary me-2 elements"></i>Free Wifi</small>
+                    </div>
+                    <p class="text-body mb-3 text-truncate" style="max-width: 100%;">Step into a world of contemporary
+                        luxury with our Junior Suite, offering spacious living, premium comfort, and a chic design
+                        tailored for modern travelers.</p>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4 hover-grow" href="#">View Detail</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4 hover-grow" href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <section class="container py-5">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">Explore Nearby Attractions</h2>
+                    <p class="text-muted text-center">Discover the best spots just minutes away from your stay</p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Attraction Card -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm">
+                            <img src="images/mall.jpg" class="card-img-top" alt="Accra Mall">
+                            <div class="card-body">
+                                <h5 class="card-title">Accra Mall</h5>
+                                <p class="card-text text-muted">7 min drive • Premier shopping and entertainment hub.
+                                </p>
+                                <a href="https://maps.google.com?q=Accra+Mall" target="_blank"
+                                    class="btn btn-sm btn-outline-primary">View on Map</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repeat for more cards -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm">
+                            <img src="images/beach.jpg" class="card-img-top" alt="Labadi Beach">
+                            <div class="card-body">
+                                <h5 class="card-title">Labadi Beach</h5>
+                                <p class="card-text text-muted">15 min drive • Chill with live music & horseback rides.
+                                </p>
+                                <a href="https://maps.google.com?q=Labadi+Beach" target="_blank"
+                                    class="btn btn-sm btn-outline-primary">View on Map</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 shadow-sm">
+                            <img src="images/bar.jpg" class="card-img-top" alt="SkyBar 25">
+                            <div class="card-body">
+                                <h5 class="card-title">SkyBar 25</h5>
+                                <p class="card-text text-muted">5 min drive • Rooftop restaurant with skyline views.</p>
+                                <a href="https://maps.google.com?q=SkyBar+25" target="_blank"
+                                    class="btn btn-sm btn-outline-primary">View on Map</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add more cards as needed -->
+                </div>
+            </section>
+
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <div class="col">
+                <div class="text-center">
+                    <h6 class="section-title text-center text-primary text-uppercase">Our Services</h6>
+                    <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Services</span></h1>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="50">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+                        <div class=" border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-hotel fa-2x text-primary ico"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Rooms & Apartment</h5>
+                    <p class="para">Explore our luxurious and comfortable rooms and apartments, designed to
+                        provide the perfect getaway for your stay. Enjoy modern amenities, elegant decor, and a relaxing
+                        atmosphere.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+                        <div class="border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-utensils fa-2x text-primary ico"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Food & Restaurant</h5>
+                    <p class="para">
+                        Indulge in a variety of delicious cuisines at our exquisite restaurant. We offer mouth-watering
+                        dishes prepared by top chefs, perfect for satisfying your taste buds and creating unforgettable
+                        dining experiences.
+                    </p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+                        <div class="border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-spa fa-2x text-primary ico"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Spa & Fitness</h5>
+                    <p class="para">
+                        Rejuvenate your body and mind at our spa and fitness center. Enjoy soothing spa treatments and
+                        stay active with our modern gym facilities, all designed to help you relax, recharge, and stay
+                        healthy.
+                    </p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+                        <div class="border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-futbol fa-2x text-primary ico"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Sports & Gaming</h5>
+                    <p class="para">
+                        Experience thrilling sports and exciting gaming activities at our facility. Whether you're into
+                        football, indoor games, or electronic gaming zones, there's something fun for everyone to enjoy.
+                    </p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+                        <div class="border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-glass-cheers fa-2x text-primary ico"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Event & Party</h5>
+                    <p class="para">
+                        Celebrate unforgettable moments with us! Our event and party spaces are perfect for weddings,
+                        birthdays, corporate gatherings, and special occasions, all set in a stylish and vibrant
+                        atmosphere.
+                    </p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1 mx-auto">
+                        <div class="border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-dumbbell fa-2x text-primary ico"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Gym & Yoga</h5>
+                    <p class="para">
+                        Stay fit and find your inner peace with our fully equipped gym and serene yoga spaces. Whether
+                        you want intense workouts or calming yoga sessions, we offer the perfect environment for your
+                        wellness journey.
+                    </p>
+                </a>
+            </div>
+
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+            <section class="container py-5">
+                <div class="bg-light p-5 rounded-4 shadow-sm">
+
+                    <!-- FAQs -->
+                    <h2 class="mb-4 fw-bold text-primary">Frequently Asked Questions</h2>
+                    <div class="accordion" id="faqAccordion" data-aos="fade-up" data-aos-delay="100">
+
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header" id="faq1">
+                                <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                    How do I book an apartment?
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Booking is simple! Browse available apartments, click "Book Now," and complete the
+                                    reservation form. Confirmation will be sent to your email.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header" id="faq2">
+                                <button class="accordion-button collapsed fw-semibold" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false"
+                                    aria-controls="collapse2">
+                                    What is the cancellation policy?
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Cancellations made at least 7 days before check-in will receive a full refund.
+                                    Cancellations within 7 days are non-refundable.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header" id="faq3">
+                                <button class="accordion-button collapsed fw-semibold" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false"
+                                    aria-controls="collapse3">
+                                    What should I bring with me?
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Guests are encouraged to bring their personal essentials, including toiletries,
+                                    preferred bed linens, towels, and any additional kitchen items for personal use if
+                                    desired.
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- House Rules -->
+                    <div class="mt-5" data-aos="fade-up" data-aos-delay="100">
+                        <h2 class="mb-4 fw-bold text-primary">House Rules & Policies</h2>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item py-3">
+                                <i class="fas fa-moon text-primary me-2"></i> Quiet hours are from 10:00 PM to 7:00 AM.
+                            </li>
+                            <li class="list-group-item py-3">
+                                <i class="fas fa-user-friends text-primary me-2"></i> Guests are allowed with prior
+                                notice and approval.
+                            </li>
+                            <li class="list-group-item py-3">
+                                <i class="fas fa-ban text-primary me-2"></i> No smoking inside the apartments.
+                            </li>
+                            <li class="list-group-item py-3">
+                                <i class="fas fa-paw text-primary me-2"></i> Pets are not allowed unless stated
+                                otherwise.
+                            </li>
+                            <li class="list-group-item py-3">
+                                <i class="fas fa-broom text-primary me-2"></i> Please maintain cleanliness throughout
+                                your stay.
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="500">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const toggleBtn = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('show');
+  });
+</script>
+ <!-- Core Vendor JS Libraries -->
+ <script src="assets/js/jquery.js"></script> <!-- jQuery -->
+ <script src="assets/js/popper.min.js"></script>
+ <!-- Popper.js (needed for Bootstrap tooltips, popovers, dropdowns) -->
+ <script src="assets/js/bootstrap.js"></script> <!-- Bootstrap -->
+
+ <!-- Animation Libraries -->
+ <script src="assets/js/gsap.min.js"></script> <!-- GSAP core -->
+ <script src="assets/js/ScrollTrigger.min.js"></script> <!-- GSAP ScrollTrigger Plugin -->
+
+ <!-- UI Components -->
+ <script src="assets/js/swiper-bundle.min.js"></script> <!-- Swiper Carousel -->
+ <script src="assets/js/aos.js"></script> <!-- AOS (Animate on Scroll) -->
+ <script>
+  AOS.init();
+  // Initialize Swiper (example setup, edit as needed)
+  var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 1,
+      loop: true,
+      autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+      },
+      pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+      },
+  });
+</script>
+</body>
+</html>
