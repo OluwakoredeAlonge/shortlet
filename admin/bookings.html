@@ -89,6 +89,7 @@
               <th>Status</th>
               <th>Contact</th>
               <th>Actions</th>
+              <th>Total Days</th>
             </tr>
           </thead>
           <tbody>
@@ -106,6 +107,8 @@
               <td>
                 <a href="#" class="btn btn-sm btn-outline-success"><i class="fas fa-check-circle"></i></a>
                 <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-times-circle"></i></a>
+              </td>
+              <td>
               </td>
             </tr>
             <!-- More rows here dynamically -->
@@ -145,17 +148,25 @@
                 </select>
               </div>
   
-              <!-- Check-in and Check-out -->
-              <div class="col-md-6">
-                <label class="form-label">Check-In</label>
-                <input type="date" class="form-control">
+              <div class="row g-3">
+                <!-- Check-in and Check-out -->
+                <div class="col-md-6">
+                  <label class="form-label">Check-In</label>
+                  <input type="date" class="form-control" id="checkinDate">
+                </div>
+              
+                <div class="col-md-6">
+                  <label class="form-label">Check-Out</label>
+                  <input type="date" class="form-control" id="checkoutDate">
+                </div>
+              
+                <!-- Total Days Row -->
+                <div class="col-12">
+                  <label class="form-label">Total Number of Days</label>
+                  <input type="text" class="form-control" id="totalDays" readonly>
+                </div>
               </div>
-  
-              <div class="col-md-6">
-                <label class="form-label">Check-Out</label>
-                <input type="date" class="form-control">
-              </div>
-  
+              
               <!-- Contact Info -->
               <div class="col-md-6">
                 <label class="form-label">Phone Number</label>
@@ -280,5 +291,27 @@
  <!-- UI Components -->
  <script src="assets/js/swiper-bundle.min.js"></script> <!-- Swiper Carousel -->
  <script src="assets/js/aos.js"></script> <!-- AOS (Animate on Scroll) -->
+ <script>
+  const checkin = document.getElementById('checkinDate');
+  const checkout = document.getElementById('checkoutDate');
+  const totalDays = document.getElementById('totalDays');
+
+  function calculateDays() {
+    const checkinDate = new Date(checkin.value);
+    const checkoutDate = new Date(checkout.value);
+
+    if (checkin.value && checkout.value) {
+      const diffTime = checkoutDate - checkinDate;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      totalDays.value = diffDays > 0 ? diffDays + ' day(s)' : 'Invalid date range';
+    } else {
+      totalDays.value = '';
+    }
+  }
+
+  checkin.addEventListener('change', calculateDays);
+  checkout.addEventListener('change', calculateDays);
+</script>
 </body>
 </html>
